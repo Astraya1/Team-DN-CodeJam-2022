@@ -4,8 +4,8 @@ class Graph:
         self.V = vertices # No. of vertices
         self.graph = [] 
 
-    def addEdge(self, u, v, w):
-        self.graph.append([u, v, w])
+    def addEdge(self, src, dest, weight, time):
+        self.graph.append([src, dest, weight,time])
 
     def printArr(self, dist):
         print("Vertex Distance from Source")
@@ -17,11 +17,11 @@ class Graph:
         dist[src] = 0
 
         for _ in range(self.V - 1):
-            for u, v, w in self.graph:
-                if dist[u] != float("Inf") and dist[u] + w < dist[v]:
-                        dist[v] = dist[u] + w
-        for u, v, w in self.graph:
-                if dist[u] != float("Inf") and dist[u] + w < dist[v]:
+            for src, dest, weight, time in self.graph:
+                if (dist[src] != float("Inf")) and ((dist[src] + weight) < dist[dest]):
+                        dist[dest] = dist[src] + weight
+        for src, dest, weight, time in self.graph:
+                if (dist[src] != float("Inf")) and ((dist[src] + weight) < dist[dest]):
                         print("Graph contains negative weight cycle")
                         return
                          
@@ -37,6 +37,17 @@ def main():
     print("Trying bellman ford")
 
     truckG = Graph(5)
+    truckG.addEdge(0, 1, -1, 40)
+    truckG.addEdge(0, 2, 4, 50)
+    truckG.addEdge(1, 2, 3,30)
+    truckG.addEdge(1, 3, 2,50)
+    truckG.addEdge(1, 4, 2,50)
+    truckG.addEdge(3, 2, 5,20)
+    truckG.addEdge(3, 1, 1,50)
+    truckG.addEdge(4, 3, -3,60)
+ 
+# Print the solution
+    truckG.BellmanFord(0)
 
 
 main()
