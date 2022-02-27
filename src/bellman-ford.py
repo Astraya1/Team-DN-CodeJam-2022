@@ -39,7 +39,7 @@ class Graph:
         for i in range(self.V):
             print("{0}\t\t{1}".format(i, dist[i]))
 
-    def BellmanFord(self, src, maxtime, list_node):
+    def BellmanFord(self, src, maxtime, list_node, trucker):
         dist = [float("-Inf")] * self.V
         dist[src] = 0
 
@@ -48,17 +48,18 @@ class Graph:
 
 
         time_consumed = 0
-        maxTime = 
+        maxTime = trucker.maxRoadTime
         totalBalance = 0
         while (time_consumed < maxTime):
             for src, dest, weight, loads, time in self.graph: 
                 profit = 0
                 if(loads):
-                    for()
-                        if (dist[src] != float("-Inf")) and ((dist[src] + weight) > dist[dest]):
-                                dist[dest] = dist[src] + weight
-                                tim[dest] = tim[src] + time
-                                dest_node.load = dest_node-1
+                    for i in (loads):
+                        if(time_consumed <= helper.pickUpHour(i, trucker)):
+                            if (dist[src] != float("-Inf")) and ((dist[src] + weight) > dist[dest]):
+                                    dist[dest] = dist[src] + weight
+                                    tim[dest] = tim[src] + time
+                                    dest_node.load = dest_node-1
                         
 
         # for src, dest, weight, time in self.graph:
