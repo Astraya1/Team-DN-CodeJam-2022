@@ -1,27 +1,28 @@
-class load:
-    def __init__(self, money, dest):
-        self.money = money
+# class load:
+#     def __init__(self, money, dest):
+#         self.money = money
 
-    def money(self, m):
-        self.money = m
+#     def money(self, m):
+#         self.money = m
 
-    def money(self):
-        return self.money
+#     def money(self):
+#         return self.money
 
-class node:
-    def __init__(self, pickuphour, load):
-        self.pickuphour = pickuphour
-        self.load = load
+# class node:
+#     def __init__(self, pickuphour, load):
+#         self.pickuphour = pickuphour
+#         self.load = load
 
-    def load(self, l):
-        self.load = l
+#     def load(self, l):
+#         self.load = l
 
-    def load(self):
-        return self.load
+#     def load(self):
+#         return self.load
 
-    def pickuphour(self):
-        return self.pickuphour
+#     def pickuphour(self):
+#         return self.pickuphour
 
+import helper
 
 class Graph:
 
@@ -29,8 +30,8 @@ class Graph:
         self.V = vertices # No. of vertices
         self.graph = [] 
 
-    def addEdge(self, src, dest, weight, time):
-        self.graph.append([src, dest, weight, time])
+    def addEdge(self, src, dest, weight, loads, time):
+        self.graph.append([src, dest, weight, loads, time])
     # def editEdge(self, g):
 
     def printArr(self, dist):
@@ -46,14 +47,18 @@ class Graph:
         tim[src] = 0
 
 
-        for _ in range(self.V - 1):
-            for src, dest, weight, time in self.graph:
-                src_node = list_node[src] 
-                dest_node = list_node[dest]
-                if (dist[src] != float("-Inf")) and ((dist[src] + weight) > dist[dest]) and (tim[src] + time < maxtime) and (tim[src] + time < dest_node.pickuphour):
-                        dist[dest] = dist[src] + weight
-                        tim[dest] = tim[src] + time
-                        dest_node.load = dest_node-1
+        time_consumed = 0
+        maxTime = 
+        totalBalance = 0
+        while (time_consumed < maxTime):
+            for src, dest, weight, loads, time in self.graph: 
+                profit = 0
+                if(loads):
+                    for()
+                        if (dist[src] != float("-Inf")) and ((dist[src] + weight) > dist[dest]):
+                                dist[dest] = dist[src] + weight
+                                tim[dest] = tim[src] + time
+                                dest_node.load = dest_node-1
                         
 
         # for src, dest, weight, time in self.graph:
