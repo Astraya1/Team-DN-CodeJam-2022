@@ -1,31 +1,14 @@
 from cmath import inf
 from datetime import *
 import math
-
-
-class Load:
-    def __init__(self, pickup_date_time):
-        self.pickup_date_time = pickup_date_time
-
-
-class Trucker:
-    def __init__(self, start_time):
-        self.start_time = start_time
-
-class Load:
-    def __init__(self, start_time):
-        self.start_time = start_time
+from Justin import *
 
     # find distance between 2 locations in miles
 
 def calculateDistance():
     return 2
 
-def findDistance(location1, location2):
-    lat1 = location1.start_latitude
-    lon1 = location1.start_longitude
-    lat2 = location2.start_latitude
-    lon2 = location2.start_longitude
+def findDistance(lat1, lon1, lat2, lon2):
     R = 6371000
     phi1 = lat1 * math.pi/180
     phi2 = lat2 * math.pi/180

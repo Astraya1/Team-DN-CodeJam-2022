@@ -2,7 +2,7 @@ import csv
 import json
 from datetime import datetime
 
-class load:
+class Load:
     def __init__(self, load_id, origin_city, origin_state, origin_latitude, origin_longitude, destination_city, destination_state, destination_latitude, destination_longitude, amount, pickup_date_time) -> None:
         self.load_id = load_id
         self.origin_city = origin_city
