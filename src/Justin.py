@@ -2,7 +2,7 @@ import csv
 import json
 from datetime import datetime
 
-class load:
+class Load:
     def __init__(self, load_id, origin_city, origin_state, origin_latitude, origin_longitude, destination_city, destination_state, destination_latitude, destination_longitude, amount, pickup_date_time) -> None:
         self.load_id = load_id
         self.origin_city = origin_city
@@ -15,6 +15,19 @@ class load:
         self.destination_longitude = destination_longitude
         self.amount = amount
         self.pickup_date_time = datetime.strptime(pickup_date_time, "%Y-%m-%d %H:%M:%S") #Converts the date and time into a datetime object so that we can calculate the time delta between pickup and delivery date.
+
+class trucker:
+    def 
+
+class edge:
+    def __init__(self, source, destination, gascost, loads, time):
+        self.source = source
+        self.destination = destination
+        self.gascost = gascost
+        self.loads = loads
+        self.time = time
+
+        pass
 
 def readcsv(csvfile): #Variable 'csvfile' should be the file name of the data sheet ie. dataset.csv
     with open(csvfile, 'r') as csv_file:
