@@ -1,5 +1,5 @@
 class load:
-    def __init__(self, money):
+    def __init__(self, money, dest):
         self.money = money
 
     def money(self, m):
