@@ -17,6 +17,7 @@ class Load:
         self.destination_longitude = destination_longitude
         self.amount = amount
         self.pickup_date_time = datetime.strptime(pickup_date_time, "%Y-%m-%d %H:%M:%S") #Converts the date and time into a datetime object so that we can calculate the time delta between pickup and delivery date.
+        self.pickupHour = 0
 
 class Edge:
     def __init__(self, source, destination, gascost, loads, time):
@@ -32,13 +33,40 @@ class Edge:
         else:
             return None
 
-    def create_Edge_From_Trucker(trucker, load, destination):
-        milesDist = findDistance(trucker.start_latitude,trucker.start_longitude,load.origin_latitude,load.origin_longitude)
-        gasCost = money(milesDist, load.amount)
-        loads = load
+    def addLoad(self, load):
+        self.loads.append(load)
 
-        return Edge(0,destination,gasCost,loads,time)
-    
+    def create_Edge_From_Trucker(self,trucker, load, destination):
+        if(self.get(0,destination) == None):
+            milesDist = findDistance(trucker.start_latitude,trucker.start_longitude,load.origin_latitude,load.origin_longitude)
+            time = calculateTimeOfTrip(milesDist)
+            gasCost = money(milesDist, load.amount)
+            load.pickupHour = deadline
+            self.loads = [load]
+            return Edge(0,destination,gasCost,self.loads,time)
+
+        else:
+            deadline = pickUpHour(load,trucker)
+            load.pickupHour = deadline
+            edge = self.get(0,destination)
+            edge.addLoad(load)
+            return edge
+
+    def create_Edge(self,load,source,destination, trucker):
+        if(self.get(source,destination) == None):
+            milesDist = findDistance(load.origin_latitude,load.origin_longitude, load.destination_latitude,load.destination_longitude)
+            time = calculateTimeOfTrip(milesDist)
+            gasCost = money(milesDist, load.amount)
+            load.pickupHour = deadline
+            self.loads = [load]
+            return Edge(0,destination,gasCost,self.loads,time)
+
+        else:
+            deadline = pickUpHour(load,trucker)
+            load.pickupHour = deadline
+            edge = self.get(source,destination)
+            edge.addLoad(load)
+            return edge
 
 class Trucker: #Read from json input
     def __init__(self, trip_id, start_latitude, start_longitude, start_time, max_destination_time):
@@ -47,7 +75,8 @@ class Trucker: #Read from json input
         self.start_longitude = start_longitude
         self.start_time = start_time
         self.max_destination_time = max_destination_time
-
+        self.maxRoadTime = ((start_time - max_destination_time).total_seconds())/60/60
+        
 def findDistance(lat1, lon1, lat2, lon2):
     R = 6371000
     phi1 = lat1 * math.pi/180
@@ -80,6 +109,8 @@ def pickUpHour(load, trucker):
     total_seconds = difference.total_seconds()
     hours = total_seconds/60/60
     return hours
+
+
 
 def readcsv(csvfile): #Variable 'csvfile' should be the file name of the data sheet ie. dataset.csv
     with open(csvfile, 'r') as csv_file:
