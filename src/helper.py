@@ -36,7 +36,7 @@ class Edge:
     def addLoad(self, load):
         self.loads.append(load)
 
-    def create_Edge_From_Trucker(self,trucker, load, destination):
+    def create_Edge_From_Trucker(self, trucker, load, destination):
         if(self.get(0,destination) == None):
             milesDist = findDistance(trucker.start_latitude,trucker.start_longitude,load.origin_latitude,load.origin_longitude)
             time = calculateTimeOfTrip(milesDist)
@@ -52,7 +52,7 @@ class Edge:
             edge.addLoad(load)
             return edge
 
-    def create_Edge(self,load,source,destination, trucker):
+    def create_Edge(self, trucker, load, source, destination):
         if(self.get(source,destination) == None):
             milesDist = findDistance(load.origin_latitude,load.origin_longitude, load.destination_latitude,load.destination_longitude)
             time = calculateTimeOfTrip(milesDist)
@@ -76,7 +76,7 @@ class Trucker: #Read from json input
         self.start_time = start_time
         self.max_destination_time = max_destination_time
         self.maxRoadTime = ((start_time - max_destination_time).total_seconds())/60/60
-        
+
 def findDistance(lat1, lon1, lat2, lon2):
     R = 6371000
     phi1 = lat1 * math.pi/180
