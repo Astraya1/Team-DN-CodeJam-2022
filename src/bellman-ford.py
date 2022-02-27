@@ -1,68 +1,53 @@
-from cmath import inf
-from datetime import *
-import math
+class Graph:
+
+    def __init__(self, vertices):
+        self.V = vertices # No. of vertices
+        self.graph = [] 
+
+    def addEdge(self, src, dest, weight, time):
+        self.graph.append([src, dest, weight,time])
+
+    def printArr(self, dist):
+        print("Vertex Distance from Source")
+        for i in range(self.V):
+            print("{0}\t\t{1}".format(i, dist[i]))
+
+    def BellmanFord(self, src):
+        dist = [float("Inf")] * self.V
+        dist[src] = 0
+
+        for _ in range(self.V - 1):
+            for src, dest, weight, time in self.graph:
+                if (dist[src] != float("Inf")) and ((dist[src] + weight) < dist[dest]):
+                        dist[dest] = dist[src] + weight
+        for src, dest, weight, time in self.graph:
+                if (dist[src] != float("Inf")) and ((dist[src] + weight) < dist[dest]):
+                        print("Graph contains negative weight cycle")
+                        return
+                         
+        # print all distance
+        self.printArr(dist)
+        
 
 
-class Load:
-    def __init__(self, pickup_date_time):
-        self.pickup_date_time = pickup_date_time
-
-
-class Trucker:
-    def __init__(self, start_time):
-        self.start_time = start_time
-
-class Load:
-    def __init__(self, start_time):
-        self.start_time = start_time
-
-    # find distance between 2 locations in miles
-
-def calculateDistance():
-    return 2
-
-def findDistance(location1, location2):
-    lat1 = location1.start_latitude
-    lon1 = location1.start_longitude
-    lat2 = location2.start_latitude
-    lon2 = location2.start_longitude
-    R = 6371000
-    phi1 = lat1 * math.pi/180
-    phi2 = lat2 * math.pi/180
-    deltaPhi = (lat2 - lat1) * math.pi/180
-    deltaLambda = (lon2 - lon1) * math.pi/180
-
-    a = math.sin(deltaPhi/2) * math.sin(deltaPhi/2) + math.cos(phi1) + \
-        math.cos(phi2) * math.sin(deltaLambda/2) * math.sin(deltaLambda/2)
-    c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a))
-
-    metresDist = R * c
-    milesDist = metresDist/1609.344
-    return milesDist
-
-
-def calculateTimeOfTrip(milesDist):
-    driveTime = milesDist/55
-    return driveTime
-
-
-def money(milesDist, profit):
-    price = -(milesDist * 0.4) + profit
-    return price
-
-
-def pickUpHour(load, trucker):
-    pickUpDate = load.pickup_date_time
-    truckerStartTime = trucker.start_time
-    difference = pickUpDate - truckerStartTime
-    total_seconds = difference.total_seconds()
-    hours = total_seconds/60/60
-    return hours
 
 
 def main():
-    trucker = Trucker(datetime.fromisoformat('2011-11-04 05:00:00'))
-    load = Load(datetime.fromisoformat('2011-11-04 06:00:00'))
-    print(pickUpHour(load, trucker))
+
+    print("Trying bellman ford")
+
+    truckG = Graph(5)
+    truckG.addEdge(0, 1, -1, 40)
+    truckG.addEdge(0, 2, 4, 50)
+    truckG.addEdge(1, 2, 3,30)
+    truckG.addEdge(1, 3, 2,50)
+    truckG.addEdge(1, 4, 2,50)
+    truckG.addEdge(3, 2, 5,20)
+    truckG.addEdge(3, 1, 1,50)
+    truckG.addEdge(4, 3, -3,60)
+ 
+# Print the solution
+    truckG.BellmanFord(0)
+
 
 main()
