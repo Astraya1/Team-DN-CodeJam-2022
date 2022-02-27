@@ -1,5 +1,6 @@
 import csv
 import json
+from datetime import datetime
 
 class load:
     def __init__(self, load_id, origin_city, origin_state, origin_latitude, origin_longitude, destination_city, destination_state, destination_latitude, destination_longitude, amount, pickup_date_time) -> None:
@@ -13,16 +14,16 @@ class load:
         self.destination_latitude = destination_latitude
         self.destination_longitude = destination_longitude
         self.amount = amount
-        self.pickup_date_time = pickup_date_time
+        self.pickup_date_time = datetime.strptime(pickup_date_time, "%Y-%m-%d %H:%M:%S") #Converts the date and time into a datetime object so that we can calculate the time delta between pickup and delivery date.
 
 def readcsv(csvfile): #Variable 'csvfile' should be the file name of the data sheet ie. dataset.csv
     with open(csvfile, 'r') as csv_file:
         csvfile = csv.reader(csv_file)
 
         paths = []
-        for line in csvfile: #Creates a list which contains all truck route requests, with information stored as attributes given by the request class.
-            paths.append(load(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10]))
-        
+        for i, line in enumerate(csvfile): #Creates a list which contains all truck route requests, with information stored as attributes given by the request class.
+            if i > 0:
+                paths.append(load(line[0], line[1], line[2], line[3], line[4], line[5], line[6], line[7], line[8], line[9], line[10]))
         return paths
 
 def readinput(): 
