@@ -1,3 +1,5 @@
-import Justin
+import helper
 
-print(Justin.readcsv('dataset.csv'))
+a = helper.readcsv('dataset.csv')[3]
+
+print(a.amount)
